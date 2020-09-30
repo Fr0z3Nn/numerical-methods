@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class SecondMatrixWithoutLibs {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Scanner scan = new Scanner(System.in);
 
         System.out.print("Введите размер матрицы / кол-во уравнений: ");
@@ -24,6 +24,8 @@ public class SecondMatrixWithoutLibs {
                 }
             }
         }
+
+
         //вектор
         System.out.print("Введите свободные коэффициенты: ");
         for (int i = 0; i < numberOfEquation; i++) {
@@ -48,7 +50,7 @@ public class SecondMatrixWithoutLibs {
                 vector[i] -= koef * vector[j];
             }
         }
-
+        double[] solution = new double[numberOfEquation];
         System.out.println("ПОСЛЕ ДИАГОНАЛЬНОГО ПРЕОБРАЗОВАНИЯ");
         System.out.println("МАТРИЦА:");
         printArray(matrix);
@@ -57,18 +59,69 @@ public class SecondMatrixWithoutLibs {
         System.out.println("ВЕКТОР:");
         System.out.println(Arrays.toString(vector));
 
-        double[] solution = new double[numberOfEquation];
-        for(int i = matrix.length - 1; i >= 0; i--){
-            for(int j = 0; j < matrix.length; j++){
-                if (i != j){
-                    vector[i] -= solution[j] * matrix [i][j];
+
+        for (int i = matrix.length - 1; i >= 0; i--) {
+            for (int j = 0; j < matrix.length; j++) {
+                if (i != j) {
+                    vector[i] -= solution[j] * matrix[i][j];
                 }
             }
-            solution[i] = vector[i] / matrix [i][i];
+            solution[i] = vector[i] / matrix[i][i];
         }
 
         System.out.println("КОРНИ УРАВНЕНИЯ:");
-        System.out.println(Arrays.toString(solution));
+        printSolution(solution);
+        Matrix matrixToDeterminant = new Matrix(matrix);
+        System.out.printf("ОПРЕДЕЛИТЕЛЬ: %.2f\n", matrixToDeterminant.Determinant());
+        //reverse all
+        double[][] reverseMatrix = new double[numberOfEquation][numberOfEquation];
+        double[][] reverseOneDiagonalMatrix = new double[numberOfEquation][numberOfEquation];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                reverseMatrix[i][j] = matrix[matrix.length - 1 - i][matrix.length - 1 - j];
+                reverseOneDiagonalMatrix[i][j] = oneDiagonalMatrix[oneDiagonalMatrix.length - 1 - i][oneDiagonalMatrix.length - 1 - j];
+            }
+        }
+        System.out.println("РЕВЕРС МАТРИЦ");
+        printArray(reverseMatrix);
+        printArray(reverseOneDiagonalMatrix);
+
+        for (int j = 0; j < reverseMatrix.length; j++) {
+            for (int i = j + 1; i < reverseMatrix.length; i++) {
+                double koef = reverseMatrix[i][j] / reverseMatrix[j][j];
+                for (int m = 0; m < reverseMatrix.length; m++) {
+                    reverseMatrix[i][m] -= koef * reverseMatrix[j][m];
+                    reverseOneDiagonalMatrix[i][m] -= koef * reverseOneDiagonalMatrix[j][m];
+                }
+            }
+        }
+        System.out.println("РЕВЕРС МАТРИЦ ДИАГОНАЛЬ");
+        printArray(reverseMatrix);
+        printArray(reverseOneDiagonalMatrix);
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                if(i == j){
+                    for(int m = 0; m<matrix.length; m++){
+                        reverseOneDiagonalMatrix[i][m] /= reverseMatrix[i][j];
+                    }
+                }
+            }
+        }
+
+        System.out.println("РЕВЕРС ОБРАТНОЙ МАТРИЦЫ");
+        printArray(reverseOneDiagonalMatrix);
+
+        double[][] inverseMatrix = new double[numberOfEquation][numberOfEquation];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                inverseMatrix[i][j] = reverseOneDiagonalMatrix[reverseOneDiagonalMatrix.length - 1 - i][reverseOneDiagonalMatrix.length - 1 - j];
+            }
+        }
+
+        System.out.println("ОБРАТНАЯ МАТРИЦА");
+        printArray(inverseMatrix);
+
     }
 
     static void printArray(double[][] array) {
@@ -79,4 +132,12 @@ public class SecondMatrixWithoutLibs {
             System.out.println();
         }
     }
+
+    static void printSolution(double[] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.printf("X" + (i + 1) + " = %.2f\n", array[i]);
+        }
+    }
+
+
 }
