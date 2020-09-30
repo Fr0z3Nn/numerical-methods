@@ -76,12 +76,14 @@ public class SecondMatrixWithoutLibs {
         //reverse all
         double[][] reverseMatrix = new double[numberOfEquation][numberOfEquation];
         double[][] reverseOneDiagonalMatrix = new double[numberOfEquation][numberOfEquation];
+
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
                 reverseMatrix[i][j] = matrix[matrix.length - 1 - i][matrix.length - 1 - j];
                 reverseOneDiagonalMatrix[i][j] = oneDiagonalMatrix[oneDiagonalMatrix.length - 1 - i][oneDiagonalMatrix.length - 1 - j];
             }
         }
+
         System.out.println("РЕВЕРС МАТРИЦ");
         printArray(reverseMatrix);
         printArray(reverseOneDiagonalMatrix);
@@ -101,8 +103,8 @@ public class SecondMatrixWithoutLibs {
 
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
-                if(i == j){
-                    for(int m = 0; m<matrix.length; m++){
+                if (i == j) {
+                    for (int m = 0; m < matrix.length; m++) {
                         reverseOneDiagonalMatrix[i][m] /= reverseMatrix[i][j];
                     }
                 }
