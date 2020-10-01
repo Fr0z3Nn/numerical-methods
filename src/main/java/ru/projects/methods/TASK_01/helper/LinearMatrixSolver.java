@@ -1,4 +1,4 @@
-package ru.projects.methods.TASK_01;
+package ru.projects.methods.TASK_01.helper;
 
 import org.apache.commons.math3.linear.*;
 

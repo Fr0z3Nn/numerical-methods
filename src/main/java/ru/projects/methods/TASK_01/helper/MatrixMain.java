@@ -1,9 +1,10 @@
-package ru.projects.methods.TASK_01;
+package ru.projects.methods.TASK_01.helper;
 
 
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealVector;
+import ru.projects.methods.TASK_01.helper.LinearMatrixSolver;
 
 import java.util.Scanner;
 
