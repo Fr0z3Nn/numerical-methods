@@ -1,16 +1,23 @@
 package ru.projects.methods.TASK_01;
 
+import java.util.Arrays;
+
 public class Matrix {
     private int dimension;
     private double[][] matrix;
     private double[] vector;
     private double[][] oneDiagonalMatrix;
+    private double[] copyOfVectorToZ;
+    private double[][] matrixOfKoefForLU;
+
 
     public Matrix(double[][] doubleArray, double[] vector) throws Exception {
         this.matrix = doubleArray;
         this.dimension = matrix.length;
         this.vector = vector;
+        this.copyOfVectorToZ = Arrays.copyOf(vector,dimension);
         this.oneDiagonalMatrix = new double[dimension][dimension];
+        this.matrixOfKoefForLU = new double[dimension][dimension];
 
         for (int i = 0; i < dimension; i++)
             if (matrix[i].length != dimension){
@@ -20,14 +27,33 @@ public class Matrix {
             for (int j = 0; j < dimension; j++) {
                 if (i == j) {
                     oneDiagonalMatrix[i][j] = 1.0;
+                    matrixOfKoefForLU[i][j] = 1.0;
                 }
             }
         }
-
+        toDiagonalMatrix();
     }
     public double[] solveMatrixAndGetX(){
-        toDiagonalMatrix();
         double[] solution = new double[dimension];
+        return getDoublesForSolution(solution, vector);
+    }
+
+    public double[] LUSolveMatrixAndGetX(){
+        double[] solution = new double[dimension];
+        double[] vectorZ = new double[dimension];
+        for (int i = 0; i < matrixOfKoefForLU.length; i++) {
+            for (int j = 0; j < matrixOfKoefForLU.length; j++) {
+                if (i != j) {
+                    copyOfVectorToZ[i] -= vectorZ[j] * matrixOfKoefForLU[i][j];
+                }
+            }
+            vectorZ[i] = copyOfVectorToZ[i];
+        }
+
+        return getDoublesForSolution(solution, vectorZ);
+    }
+
+    private double[] getDoublesForSolution(double[] solution, double[] vector) {
         for (int i = matrix.length - 1; i >= 0; i--) {
             for (int j = 0; j < matrix.length; j++) {
                 if (i != j) {
@@ -39,10 +65,11 @@ public class Matrix {
         return solution;
     }
 
-    private void toDiagonalMatrix(){
+    public void toDiagonalMatrix(){
         for (int j = 0; j < dimension; j++) {
             for (int i = j + 1; i < dimension; i++) {
                 double koef = matrix[i][j] / matrix[j][j];
+                matrixOfKoefForLU[i][j] = koef;
                 for (int m = 0; m < dimension; m++) {
                     matrix[i][m] -= koef * matrix[j][m];
                     oneDiagonalMatrix[i][m] -= koef * oneDiagonalMatrix[j][m];
@@ -52,7 +79,7 @@ public class Matrix {
         }
     }
 
-    public double[][]  getInverseMatrix(){
+    public double[][] getInverseMatrix(){
         double[][] reverseMatrix = new double[dimension][dimension];
         double[][] reverseOneDiagonalMatrix = new double[dimension][dimension];
 
@@ -94,6 +121,17 @@ public class Matrix {
         return inverseMatrix;
     }
 
+    public double getLUDeterminant(){
+        double det = 1;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                if (i == j){
+                    det *= matrix[i][j];
+                }
+            }
+        }
+        return det;
+    }
     public double getDeterminant() throws Exception {
         if (dimension == 1)
             return matrix[0][0];
