@@ -16,9 +16,9 @@ public class SecondMatrixWithoutLibs {
         int numberOfEquation;
         switch (choice) {
             case 1:
-                matrix = new double[][]{{10, 1, 1}, {2, 10, 1}, {2, 2, 10}};
-                vector = new double[]{12, 13, 14};
-                oneDiagonalMatrix = new double[][]{{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+                matrix = new double[][]{{-7, -9, 1, -9}, {-6, -8, -5, 2}, {-3, 6, 5, -9}, {-2, 0, -5, -9}};
+                vector = new double[]{29, 42, 11, 75};
+                oneDiagonalMatrix = new double[][]{{1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}};
                 break;
             case 2:
                 System.out.print("Введите размер матрицы / кол-во уравнений: ");
