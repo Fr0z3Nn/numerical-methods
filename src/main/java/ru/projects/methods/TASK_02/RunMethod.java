@@ -62,7 +62,7 @@ public class RunMethod {
         for (int i = 0; i < matrix.length; i++) {
             if(i == 0){
                 PETA[i] = (-(matrix[0][1])) / (matrix[0][0]);
-            }else if(i == 4){
+            }else if(i == matrix.length - 1){
                 PETA[i] = 0;
             }else{
                 // P             C                   B               A
