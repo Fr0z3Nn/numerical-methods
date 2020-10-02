@@ -42,9 +42,14 @@ public class YakobiAndZeidel {
                 throw new IllegalStateException("Unexpected value: " + choice);
         }
 
-        Yakobi yakobi = new Yakobi(matrix,vector,accuracy);
+        Yakobi yakobi = new Yakobi(matrix, vector, accuracy);
         yakobi.ExpressMatrixCoefficients();
         yakobi.createAugmentedMatrix();
         yakobi.findRoots();
+
+        Zeidel zeidel = new Zeidel(matrix, vector, accuracy);
+        zeidel.ExpressMatrixCoefficients();
+        zeidel.createAugmentedMatrix();
+        zeidel.findRoots();
     }
 }

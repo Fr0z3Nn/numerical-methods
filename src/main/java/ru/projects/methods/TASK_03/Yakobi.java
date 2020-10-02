@@ -3,11 +3,11 @@ package ru.projects.methods.TASK_03;
 import java.util.Arrays;
 
 public class Yakobi {
-    private double[][] matrix;
-    private double[] vector;
-    private double accuracy;
-    private double[][] augmentedMatrix;
-    private double[] solution;
+    protected double[][] matrix;
+    protected double[] vector;
+    protected double accuracy;
+    protected double[][] augmentedMatrix;
+    protected double[] solution;
 
     public Yakobi(double[][] matrix, double[] vector, double accuracy) {
         this.matrix = matrix;
@@ -82,7 +82,7 @@ public class Yakobi {
 
 
     }
-    private void printHead(){
+    public void printHead(){
         for(int i = 1; i < matrix.length + 1; i++){
             System.out.printf("%5s ","X" + i );
         }
@@ -90,7 +90,7 @@ public class Yakobi {
         System.out.println();
 
     }
-    private void printSolution(double[] array) {
+    public void printSolution(double[] array) {
         for (int i = 0; i < array.length; i++) {
             System.out.printf("%2.3f ", array[i]);
         }
