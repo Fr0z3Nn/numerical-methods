@@ -3,6 +3,7 @@ package ru.projects.methods.TASK_03;
 import java.util.Arrays;
 
 public class Zeidel extends Yakobi{
+
     public Zeidel(double[][] matrix, double[] vector, double accuracy) {
         super(matrix, vector, accuracy);
     }
@@ -34,13 +35,14 @@ public class Zeidel extends Yakobi{
             printSolution(vector);
 
             epsilon = Math.pow(matrixNorm,numberOfIteration)/(1 - matrixNorm) * vectorNorm;
-            System.out.printf("%2.5f %2.8f\n", epsilon,normOfTwoVectors(solution, vector));
+            delta = normOfTwoVectors(solution, vector);
+            System.out.printf("%2.5f %2.8f\n", epsilon, delta);
 
             solution = Arrays.copyOf(vector,vector.length);
 
-            numberOfIteration++;
-        }while (epsilon > accuracy);
+            super.numberOfIteration++;
+        }while (delta > accuracy);
 
-        System.out.printf("КОЛИЧЕСТВО ИТЕРАЦИЙ: %d", numberOfIteration);
+        System.out.printf("КОЛИЧЕСТВО ИТЕРАЦИЙ: %d\n", super.numberOfIteration);
     }
 }

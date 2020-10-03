@@ -8,12 +8,17 @@ public class Yakobi {
     protected double accuracy;
     protected double[][] augmentedMatrix;
     protected double[] solution;
+    protected int numberOfIteration = 1;
 
     public Yakobi(double[][] matrix, double[] vector, double accuracy) {
         this.matrix = matrix;
         this.vector = vector;
         this.accuracy = accuracy;
         augmentedMatrix = new double[matrix.length][matrix.length + 1];
+    }
+
+    public int getNumberOfIteration() {
+        return numberOfIteration;
     }
 
     public void ExpressMatrixCoefficients() {
@@ -47,7 +52,6 @@ public class Yakobi {
         printHead();
         double epsilon;
         double delta;
-        int numberOfIteration = 1;
         double matrixNorm = normMatrix(augmentedMatrix);
         double vectorNorm = normVector(augmentedMatrix);
 
@@ -69,14 +73,15 @@ public class Yakobi {
             printSolution(solution);
 
             epsilon = Math.pow(matrixNorm,numberOfIteration)/(1 - matrixNorm) * vectorNorm;
-            System.out.printf("%2.5f %2.8f\n", epsilon,normOfTwoVectors(solution, vector));
+            delta = normOfTwoVectors(solution, vector);
+            System.out.printf("%2.5f %2.8f\n", epsilon, delta);
 
             vector = Arrays.copyOf(solution,solution.length);
 
             numberOfIteration++;
-        }while (epsilon > accuracy);
+        }while (delta > accuracy);
 
-        System.out.printf("КОЛИЧЕСТВО ИТЕРАЦИЙ: %d", numberOfIteration);
+        System.out.printf("КОЛИЧЕСТВО ИТЕРАЦИЙ: %d\n", numberOfIteration);
 
 
 
