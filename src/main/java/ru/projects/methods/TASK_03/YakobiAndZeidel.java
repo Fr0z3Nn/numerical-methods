@@ -17,6 +17,7 @@ public class YakobiAndZeidel {
         double accuracy;
         switch (choice) {
             case 1:
+                //small bug here -> two massive
                 matrix = new double[][]{{12, -3, -1, 3}, {5, 20, 9, 1}, {6, -3, -21, -7}, {8, -7, 3, -27}};
                 vector = new double[]{-31, 90, 119, 71};
                 matrix1 = new double[][]{{12, -3, -1, 3}, {5, 20, 9, 1}, {6, -3, -21, -7}, {8, -7, 3, -27}};
@@ -63,6 +64,6 @@ public class YakobiAndZeidel {
         zeidel.createAugmentedMatrix();
         zeidel.findRoots();
 
-        System.out.println("Метод Зейбеля потребовал на " + (yakobi.getNumberOfIteration() - zeidel.getNumberOfIteration()) + " итерации меньше");
+        System.out.println("Метод Зейделя потребовал на " + (yakobi.getNumberOfIteration() - zeidel.getNumberOfIteration()) + " итерации меньше");
     }
 }

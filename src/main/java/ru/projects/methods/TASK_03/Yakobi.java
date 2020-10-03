@@ -49,6 +49,7 @@ public class Yakobi {
     }
 
     public void findRoots() {
+        System.out.println("МЕТОД ЯКОБИ: ");
         printHead();
         double epsilon;
         double delta;

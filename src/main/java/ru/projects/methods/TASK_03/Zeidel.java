@@ -10,6 +10,7 @@ public class Zeidel extends Yakobi{
 
     @Override
     public void findRoots() {
+        System.out.println("МЕТОД ЗЕЙДЕЛЯ: ");
         printHead();
         double epsilon;
         double delta;
