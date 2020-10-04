@@ -48,13 +48,20 @@ public class Yakobi {
         }
     }
 
+
     public void findRoots() {
-        System.out.println("МЕТОД ЯКОБИ: ");
-        printHead();
+
         double epsilon;
         double delta;
         double matrixNorm = normMatrix(augmentedMatrix);
         double vectorNorm = normVector(augmentedMatrix);
+
+        System.out.println("МЕТОД ЯКОБИ: ");
+
+        System.out.printf("НОРМА МАТРИЦЫ: %2.3f\n", matrixNorm);
+        System.out.println(matrixNorm < 1 ? "Итерационный процесс будет сводиться к точному решению\n" : "Итерационный процесс к точному решению сводится не будет\n");
+
+        printHead();
 
         printSolution(solution);
         System.out.println();
@@ -82,7 +89,7 @@ public class Yakobi {
             numberOfIteration++;
         }while (delta > accuracy);
 
-        System.out.printf("КОЛИЧЕСТВО ИТЕРАЦИЙ: %d\n", numberOfIteration);
+        System.out.printf("КОЛИЧЕСТВО ИТЕРАЦИЙ: %d\n\n", numberOfIteration);
 
 
 
