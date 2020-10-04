@@ -35,7 +35,7 @@ public class Zeidel extends Yakobi{
 
             printSolution(vector);
 
-            epsilon = Math.pow(matrixNorm,numberOfIteration)/(1 - matrixNorm) * vectorNorm;
+            epsilon = Math.pow(matrixNorm,super.numberOfIteration)/(1 - matrixNorm) * vectorNorm;
             delta = normOfTwoVectors(solution, vector);
             System.out.printf("%2.5f %2.8f\n", epsilon, delta);
 
