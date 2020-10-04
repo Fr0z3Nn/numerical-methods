@@ -80,14 +80,15 @@ public class Yakobi {
 
             printSolution(solution);
 
-            epsilon = Math.pow(matrixNorm,numberOfIteration)/(1 - matrixNorm) * vectorNorm;
+
             delta = normOfTwoVectors(solution, vector);
+            epsilon = matrixNorm/(1 - matrixNorm) * delta;
             System.out.printf("%2.5f %2.8f\n", epsilon, delta);
 
             vector = Arrays.copyOf(solution,solution.length);
 
             numberOfIteration++;
-        }while (delta > accuracy);
+        }while (epsilon >= accuracy);
 
         System.out.printf("КОЛИЧЕСТВО ИТЕРАЦИЙ: %d\n\n", numberOfIteration);
 

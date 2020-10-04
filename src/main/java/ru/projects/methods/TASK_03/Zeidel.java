@@ -39,14 +39,14 @@ public class Zeidel extends Yakobi{
 
             printSolution(vector);
 
-            epsilon = Math.pow(matrixNorm,super.numberOfIteration)/(1 - matrixNorm) * vectorNorm;
             delta = normOfTwoVectors(solution, vector);
+            epsilon = matrixNorm/(1 - matrixNorm) * delta;
             System.out.printf("%2.5f %2.8f\n", epsilon, delta);
 
             solution = Arrays.copyOf(vector,vector.length);
 
             super.numberOfIteration++;
-        }while (delta > accuracy);
+        }while (epsilon > accuracy);
 
         System.out.printf("КОЛИЧЕСТВО ИТЕРАЦИЙ: %d\n\n", super.numberOfIteration);
     }
