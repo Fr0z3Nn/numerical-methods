@@ -26,9 +26,22 @@ public class NewtonMethod {
     public String solve() {
         StringBuilder result = new StringBuilder();
         double zeroApproximation = (rightB + leftA) / 2;
-        result.append(" k         f(x)         f'(x)      -f(x)/f'(x)\n");
+        result.append(" k               x                f(x)                f'(x)              -f(x)/f'(x)\n");
         int k = 0;
-        double nextApproximation;
+        double divideArgument;
+        double epsilon;
+        do {
+            double first = fN(zeroApproximation);
+            double second = fP(zeroApproximation);
+            divideArgument = -first / second;
+            result.append(String.format(" %d        %.4f       %.4f         %.4f      %.4f\n", k, zeroApproximation, first, second, divideArgument));
+            k++;
+            zeroApproximation += divideArgument;
+            epsilon = Math.abs(divideArgument);
+
+        } while (epsilon >= accuracy);
+
+        result.append(String.format(" %d        %.4f", k, zeroApproximation));
 
         return result.toString();
     }

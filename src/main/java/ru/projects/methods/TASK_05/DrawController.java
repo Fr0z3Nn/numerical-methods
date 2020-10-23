@@ -76,7 +76,8 @@ public class DrawController {
                 areaResult.setText(iterationMethod.solve());
             }
             if (newton.isSelected()){
-                //newton
+                NewtonMethod newtonMethod = new NewtonMethod(accuracy,leftA,rightB);
+                areaResult.setText(newtonMethod.solve());
             }
 
         });
