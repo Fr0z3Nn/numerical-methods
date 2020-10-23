@@ -71,14 +71,14 @@ public class DrawController {
                 areaResult.setText("Выберите способ расчёта");
                 return;
             }
+            
+            Method method;
             if (iteration.isSelected()){
-                IterationMethod iterationMethod = new IterationMethod(accuracy,leftA,rightB);
-                areaResult.setText(iterationMethod.solve());
+                method = new IterationMethod(accuracy,leftA,rightB);
+            }else {
+                method = new NewtonMethod(accuracy,leftA,rightB);
             }
-            if (newton.isSelected()){
-                NewtonMethod newtonMethod = new NewtonMethod(accuracy,leftA,rightB);
-                areaResult.setText(newtonMethod.solve());
-            }
+            areaResult.setText(method.solve());
 
         });
         //CHECKBOX LOGIC

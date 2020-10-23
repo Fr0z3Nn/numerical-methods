@@ -1,14 +1,9 @@
 package ru.projects.methods.TASK_05;
 
-public class NewtonMethod {
-    private double accuracy;
-    private double leftA;
-    private double rightB;
+public class NewtonMethod extends Method{
 
     public NewtonMethod(double accuracy, double leftA, double rightB) {
-        this.accuracy = accuracy;
-        this.leftA = leftA;
-        this.rightB = rightB;
+        super(accuracy, leftA, rightB);
     }
 
     private double fN(double x) {

@@ -1,16 +1,10 @@
 package ru.projects.methods.TASK_05;
 
-public class IterationMethod {
-    private double accuracy;
-    private double leftA;
-    private double rightB;
+public class IterationMethod extends Method{
 
     public IterationMethod(double accuracy, double leftA, double rightB) {
-        this.accuracy = accuracy;
-        this.leftA = leftA;
-        this.rightB = rightB;
+        super(accuracy, leftA, rightB);
     }
-
 
     // f1(x) = 3sqrt(2x+1-x^2)
     private double f1N(double x) {
