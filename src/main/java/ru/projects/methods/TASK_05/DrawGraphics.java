@@ -13,7 +13,7 @@ import java.io.IOException;
 public class DrawGraphics extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("/graph.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/graph.fxml"));
         primaryStage.setTitle("TASK_05");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
