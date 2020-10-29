@@ -21,10 +21,28 @@ public class IterationMethod extends Method{
         return (2.0 / 3 - (2 * x / 3)) / Math.cbrt(Math.pow((1 - x * x + 2 * x), 2));
     }
 
+    FuncCalculate f1ABS = x ->{
+        double max = Double.MIN_NORMAL;
+        for (double i = leftA; i <= x;){
+            if(Math.abs(f1P(i)) > max) max = Math.abs(f1P(i));
+            i += accuracy;
+        }
+        return max;
+    };
+
     // f'2(x) = 3 (x^2/2) + x
     private double f2P(double x) {
         return 3 * (x * x / 2) + x;
     }
+
+    FuncCalculate f2ABS = x ->{
+        double max = Double.MIN_NORMAL;
+        for (double i = leftA; i <= x;){
+            if(Math.abs(f2P(i)) > max) max = Math.abs(f2P(i));
+            i += accuracy;
+        }
+        return max;
+    };
 
     public int findFunction() {
         if (f1N(leftA) <= rightB && f1N(leftA) >= leftA &&
@@ -40,7 +58,7 @@ public class IterationMethod extends Method{
         StringBuilder result = new StringBuilder();
         result.append(" k         X          ε\n");
         int whatFunctionUses = findFunction();
-        double zeroApproximation = (rightB + leftA) / 2;
+        double zeroApproximation = leftA;
         int k = 0;
         result.append(String.format(" %d     %.4f    ----\n", k, zeroApproximation));
         double q;
@@ -48,7 +66,7 @@ public class IterationMethod extends Method{
         double nextApproximation;
         switch (whatFunctionUses) {
             case 1:
-                q = Math.abs(f1P(rightB));
+                q = f1ABS.calculate(rightB);
                 do {
                     nextApproximation = zeroApproximation;
                     zeroApproximation = f1N(zeroApproximation);
@@ -58,7 +76,7 @@ public class IterationMethod extends Method{
                 } while (epsilon > accuracy);
                 break;
             case 2:
-                q = Math.abs(f2P(rightB));
+                q = f2ABS.calculate(rightB);
                 do {
                     nextApproximation = zeroApproximation;
                     zeroApproximation = f2N(zeroApproximation);
@@ -67,6 +85,8 @@ public class IterationMethod extends Method{
                     result.append(String.format(" %d     %.4f    %.4f\n", k, zeroApproximation, epsilon));
                 } while (epsilon > accuracy);
                 break;
+            case 0:
+                return "Условие сходимости не выполняется, выберете другой интервал";
         }
         return result.toString();
     }

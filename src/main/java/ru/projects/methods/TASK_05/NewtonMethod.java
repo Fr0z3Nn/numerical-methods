@@ -20,7 +20,7 @@ public class NewtonMethod extends Method{
 
     public String solve() {
         StringBuilder result = new StringBuilder();
-        double zeroApproximation = (rightB + leftA) / 2;
+        double zeroApproximation = leftA;
         result.append(" k               x                f(x)                f'(x)              -f(x)/f'(x)\n");
         int k = 0;
         double divideArgument;
