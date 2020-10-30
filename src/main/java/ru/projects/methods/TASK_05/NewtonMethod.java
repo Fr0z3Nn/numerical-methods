@@ -11,16 +11,39 @@ public class NewtonMethod extends Method{
     }
 
     private double fP(double x) {
-        return 3 * x * x + 2 * x - 2 ;
+        return 3 * x * x + 2 * x - 2;
     }
 
     private double fPP(double x) {
         return 6 * x + 2;
     }
 
+    private double Сonverges() {
+        System.out.println(fN(leftA));
+        System.out.println(fP(leftA));
+        System.out.println(fPP(leftA));
+        System.out.println("///////");
+        System.out.println(fN(rightB));
+        System.out.println(fP(rightB));
+        System.out.println(fPP(rightB));
+        System.out.println("----------------------------");
+        if (fP(leftA) > 0 && fP(rightB) < 0 ||
+                fP(leftA) < 0 && fP(rightB) > 0 ||
+                fPP(leftA) > 0 && fPP(rightB) < 0 ||
+                fPP(leftA) < 0 && fPP(rightB) > 0) return 0;
+        if (fN(leftA) * fN(rightB) >= 0) return 0;
+
+        for (double x = leftA; x <= rightB; ) {
+            if (fN(x) * fPP(x) > 0) return x;
+            x += accuracy;
+        }
+        return 0;
+    }
+
     public String solve() {
+        double zeroApproximation = Сonverges();
+        if (zeroApproximation == 0) return "Условие сходимости не выполняется, выберете другой интервал";
         StringBuilder result = new StringBuilder();
-        double zeroApproximation = leftA;
         result.append(" k               x                f(x)                f'(x)              -f(x)/f'(x)\n");
         int k = 0;
         double divideArgument;

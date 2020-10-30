@@ -35,14 +35,35 @@ public class IterationMethod extends Method{
         return 3 * (x * x / 2) + x;
     }
 
-    FuncCalculate f2ABS = x ->{
+    FuncCalculate f2ABS = x -> {
         double max = Double.MIN_NORMAL;
-        for (double i = leftA; i <= x;){
-            if(Math.abs(f2P(i)) > max) max = Math.abs(f2P(i));
+        for (double i = leftA; i <= x; ) {
+            if (Math.abs(f2P(i)) > max) max = Math.abs(f2P(i));
             i += accuracy;
         }
         return max;
     };
+
+    private boolean isNotСonverges(int num) {
+        boolean res = false;
+        switch (num) {
+            case 1:
+                for (double x = leftA; x <= rightB; ) {
+                    if (!(f1N(x) <= rightB && f1N(x) >= leftA &&
+                            f1P(x) < 1)) res = true;
+                    x += accuracy;
+                }
+                break;
+            case 2:
+                for (double x = leftA; x <= rightB; ) {
+                    if (!(f2N(x) <= rightB && f2N(x) >= leftA &&
+                            f2P(x) < 1)) res = true;
+                    x += accuracy;
+                }
+                break;
+        }
+        return res;
+    }
 
     public int findFunction() {
         if (f1N(leftA) <= rightB && f1N(leftA) >= leftA &&
@@ -58,6 +79,7 @@ public class IterationMethod extends Method{
         StringBuilder result = new StringBuilder();
         result.append(" k         X          ε\n");
         int whatFunctionUses = findFunction();
+        if (isNotСonverges(whatFunctionUses)) return "Условие сходимости не выполняется, выберете другой интервал";
         double zeroApproximation = leftA;
         int k = 0;
         result.append(String.format(" %d     %.4f    ----\n", k, zeroApproximation));
