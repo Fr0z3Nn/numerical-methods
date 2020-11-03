@@ -19,22 +19,11 @@ public class NewtonMethod extends Method{
     }
 
     private double Сonverges() {
-        System.out.println(fN(leftA));
-        System.out.println(fP(leftA));
-        System.out.println(fPP(leftA));
-        System.out.println("///////");
-        System.out.println(fN(rightB));
-        System.out.println(fP(rightB));
-        System.out.println(fPP(rightB));
-        System.out.println("----------------------------");
-
         if (fN(leftA) * fN(rightB) >= 0) return 0;
-
-        for (double x = leftA; x <= rightB; ) {
-            if (fN(x) * fPP(x) > 0) return x;
-            x += accuracy;
+        if(fN(leftA) * fPP(leftA) < 0|| fN(rightB) * fPP(rightB) < 0){
+            return fN(leftA) * fPP(leftA) == 0 ? rightB : leftA;
         }
-        return 0;
+        return fN(leftA) * fPP(leftA) > fN(rightB) * fPP(rightB) && fN(leftA) * fPP(leftA) > 0 && fN(rightB) * fPP(rightB) > 0 ? rightB : leftA;
     }
 
     public String solve() {
