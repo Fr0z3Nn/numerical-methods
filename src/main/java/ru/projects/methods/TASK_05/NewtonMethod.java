@@ -27,10 +27,7 @@ public class NewtonMethod extends Method{
         System.out.println(fP(rightB));
         System.out.println(fPP(rightB));
         System.out.println("----------------------------");
-        if (fP(leftA) > 0 && fP(rightB) < 0 ||
-                fP(leftA) < 0 && fP(rightB) > 0 ||
-                fPP(leftA) > 0 && fPP(rightB) < 0 ||
-                fPP(leftA) < 0 && fPP(rightB) > 0) return 0;
+
         if (fN(leftA) * fN(rightB) >= 0) return 0;
 
         for (double x = leftA; x <= rightB; ) {
