@@ -1,15 +1,17 @@
 package ru.projects.methods.TASK_06;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.chart.*;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.ScatterChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-
-import java.awt.*;
 
 public class Controller {
     @FXML
@@ -26,6 +28,18 @@ public class Controller {
     public TextField chooseAccuracy;
     @FXML
     public static ScatterChart<Number, Number> scatter;
+    @FXML
+    public TextField X1;
+    @FXML
+    public TextField X2;
+    @FXML
+    public TextField Y1;
+    @FXML
+    public TextField Y2;
+    @FXML
+    public TextArea areaResult;
+    @FXML
+    public ImageView imageToShow;
 
 
     public void initialize() {
@@ -53,6 +67,23 @@ public class Controller {
             newWindow.setTitle("Second Stage");
             newWindow.setScene(scene);
             newWindow.show();
+
+        });
+
+        findRoot.setOnMouseClicked(event -> {
+            double x1 = Double.parseDouble(X1.getText());
+            double x2 = Double.parseDouble(X2.getText());
+            double y1 = Double.parseDouble(Y1.getText());
+            double y2 = Double.parseDouble(Y2.getText());
+            double accuracy = Double.parseDouble(chooseAccuracy.getText());
+            Method method;
+            //if (iteration.isSelected()) {
+                method = new Newton(x1, x2, y1, y2, accuracy);
+            Image img = new Image("/img/Newton.png");
+                imageToShow.setImage(img);
+                //}
+
+            areaResult.setText(method.solve());
 
         });
 

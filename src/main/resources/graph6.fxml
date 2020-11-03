@@ -26,6 +26,6 @@
         <TextField fx:id="chooseAccuracy" layoutX="44.0" layoutY="63.0" prefHeight="25.0" prefWidth="124.0" promptText="точность вычисления" />
       <TextField fx:id="Y1" layoutX="178.0" layoutY="63.0" prefHeight="25.0" prefWidth="124.0" promptText="Y1" />
       <TextField fx:id="Y2" layoutX="312.0" layoutY="63.0" prefHeight="25.0" prefWidth="129.0" promptText="Y2" />
-      <ImageView fitHeight="80.0" fitWidth="700.0" layoutX="26.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imageToShow" fitHeight="80.0" fitWidth="700.0" layoutX="26.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>
