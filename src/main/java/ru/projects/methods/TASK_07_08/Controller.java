@@ -1,4 +1,4 @@
-package ru.projects.methods.TASK_06;
+package ru.projects.methods.TASK_07_08;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;

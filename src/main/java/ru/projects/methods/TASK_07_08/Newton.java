@@ -1,6 +1,6 @@
-package ru.projects.methods.TASK_06;
+package ru.projects.methods.TASK_07_08;
 
-import static ru.projects.methods.TASK_06.Util.*;
+import static ru.projects.methods.TASK_07_08.Util.*;
 
 public class Newton extends Method {
 

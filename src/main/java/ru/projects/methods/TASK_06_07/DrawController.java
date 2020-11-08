@@ -1,4 +1,4 @@
-package ru.projects.methods.TASK_05;
+package ru.projects.methods.TASK_06_07;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.AreaChart;
@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 
 public class DrawController {
     @FXML

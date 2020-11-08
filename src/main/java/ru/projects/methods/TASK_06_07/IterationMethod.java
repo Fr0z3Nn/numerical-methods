@@ -1,4 +1,4 @@
-package ru.projects.methods.TASK_05;
+package ru.projects.methods.TASK_06_07;
 
 public class IterationMethod extends Method{
 

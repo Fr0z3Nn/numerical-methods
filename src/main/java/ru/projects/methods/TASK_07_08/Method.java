@@ -1,4 +1,4 @@
-package ru.projects.methods.TASK_06;
+package ru.projects.methods.TASK_07_08;
 
 public class Method {
     protected double X1;
