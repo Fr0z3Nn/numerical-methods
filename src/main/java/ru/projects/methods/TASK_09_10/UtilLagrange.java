@@ -32,8 +32,7 @@ public class UtilLagrange {
     }
 
     public double Func(double x){
-        return Math.log(x);
-        //return 1/x + x;
+        return 1/x + x;
     }
 
     private double Omega0(double X0, double X1, double X2, double X3){
