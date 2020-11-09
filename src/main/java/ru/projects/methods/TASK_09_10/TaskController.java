@@ -23,6 +23,8 @@ public class TaskController {
     public CheckBox checkvar1;
     @FXML
     public CheckBox checkvar2;
+    @FXML
+    public Button cubeSplain;
 
     @FXML
     public void initialize() {
@@ -138,6 +140,52 @@ public class TaskController {
             newWindow.setTitle("TEXT");
             newWindow.setScene(scene);
             newWindow.show();
+        });
+
+        cubeSplain.setOnMouseClicked(event -> {
+            TextArea textArea = new TextArea();
+            textArea.setPrefColumnCount(50);
+            textArea.setPrefRowCount(10);
+            StringBuilder result = new StringBuilder();
+
+            AreaChart<Number, Number> areaChart = new AreaChart<>(new NumberAxis(), new NumberAxis());
+            XYChart.Series<Number, Number> spline1 = new XYChart.Series<>();
+            XYChart.Series<Number, Number> spline2 = new XYChart.Series<>();
+            XYChart.Series<Number, Number> spline3 = new XYChart.Series<>();
+            XYChart.Series<Number, Number> spline4 = new XYChart.Series<>();
+            CubeSpline cubeSpline = new CubeSpline(0.1,0.5,0.9,1.3,1.7,10.1,2.5,2.0111,2.0692,2.2882);
+
+            //ВЫВОД
+            for (int i = 0; i < 4; i++){
+                result.append(String.format("i = %d  [ %.2f ; %.2f ]  h = %.2f \na = %.4f\n b = %.4f\n c = %.4f\n d = %.4f\n\n\n", i+1,cubeSpline.getX()[i],cubeSpline.getX()[i+1],cubeSpline.getH()[i+1],cubeSpline.getaKOEF()[i],cubeSpline.getbKOEF()[i],cubeSpline.getcKOEF()[i],cubeSpline.getdKOEF()[i]));
+            }
+            result.append(String.format("Значение функции в точке 0.8 = %.2f",cubeSpline.calculateFuncInCoordinates(0.8,1)));
+            for (double x = cubeSpline.getX()[0]; x <= cubeSpline.getX()[1]; x += 0.01) {
+                spline1.getData().add(new XYChart.Data<>(x, cubeSpline.calculateFuncInCoordinates(x,0)));
+            }
+            for (double x = cubeSpline.getX()[1]; x <= cubeSpline.getX()[2]; x += 0.01) {
+                spline2.getData().add(new XYChart.Data<>(x, cubeSpline.calculateFuncInCoordinates(x,1)));
+            }
+            for (double x = cubeSpline.getX()[2]; x <= cubeSpline.getX()[3]; x += 0.01) {
+                spline3.getData().add(new XYChart.Data<>(x, cubeSpline.calculateFuncInCoordinates(x,2)));
+            }
+            for (double x = cubeSpline.getX()[3]; x <= cubeSpline.getX()[4]; x += 0.01) {
+                spline4.getData().add(new XYChart.Data<>(x, cubeSpline.calculateFuncInCoordinates(x,3)));
+            }
+            areaChart.getData().setAll(spline1,spline2,spline3,spline4);
+            Scene scene = new Scene(areaChart);
+            Stage newWindow = new Stage();
+            newWindow.setTitle("GRAPHICS");
+            newWindow.setScene(scene);
+            newWindow.show();
+
+            textArea.setText(result.toString());
+            Scene sceneText = new Scene(textArea);
+            Stage newWindowText = new Stage();
+            newWindowText.setTitle("TEXT");
+            newWindowText.setScene(sceneText);
+            newWindowText.show();
+
         });
 
         //METGOD CHECKERS
