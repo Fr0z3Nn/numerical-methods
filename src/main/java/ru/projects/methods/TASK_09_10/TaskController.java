@@ -165,15 +165,15 @@ public class TaskController {
                 result.append(String.format("i = %d  [ %.2f ; %.2f ]  h = %.2f \na = %.4f\n b = %.4f\n c = %.4f\n d = %.4f\n\n\n", i+1,cubeSpline.getX()[i],cubeSpline.getX()[i+1],cubeSpline.getH()[i+1],cubeSpline.getaKOEF()[i],cubeSpline.getbKOEF()[i],cubeSpline.getcKOEF()[i],cubeSpline.getdKOEF()[i]));
             }
             result.append(String.format("Значение функции в точке 0.8 = %.2f",cubeSpline.calculateFuncInCoordinates(0.8,1)));
-            for (double x = cubeSpline.getX()[0]; x < cubeSpline.getX()[1]; x += 0.01) {
+            for (double x = cubeSpline.getX()[0]; x <= cubeSpline.getX()[1]; x += 0.01) {
                 spline1.getData().add(new XYChart.Data<>(x, cubeSpline.calculateFuncInCoordinates(x,0)));
                 solutionSpline.getData().add(new XYChart.Data<>(x, cubeSpline.calculateFuncInCoordinates(x,0)));
             }
-            for (double x = cubeSpline.getX()[1]; x < cubeSpline.getX()[2]; x += 0.01) {
+            for (double x = cubeSpline.getX()[1]; x <= cubeSpline.getX()[2]; x += 0.01) {
                 spline2.getData().add(new XYChart.Data<>(x, cubeSpline.calculateFuncInCoordinates(x,1)));
                 solutionSpline.getData().add(new XYChart.Data<>(x, cubeSpline.calculateFuncInCoordinates(x,1)));
             }
-            for (double x = cubeSpline.getX()[2]; x < cubeSpline.getX()[3]; x += 0.01) {
+            for (double x = cubeSpline.getX()[2]; x <= cubeSpline.getX()[3]; x += 0.01) {
                 spline3.getData().add(new XYChart.Data<>(x, cubeSpline.calculateFuncInCoordinates(x,2)));
                 solutionSpline.getData().add(new XYChart.Data<>(x, cubeSpline.calculateFuncInCoordinates(x,2)));
             }
