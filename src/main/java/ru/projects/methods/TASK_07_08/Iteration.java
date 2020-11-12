@@ -1,6 +1,8 @@
 package ru.projects.methods.TASK_07_08;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static ru.projects.methods.TASK_07_08.Util.*;
@@ -9,84 +11,89 @@ import static ru.projects.methods.TASK_07_08.Util.*;
 
 public class Iteration extends Method {
 
+    private static StringBuilder result = new StringBuilder();
+    private List<Double> x = new ArrayList<>();
+    private List<Double> y = new ArrayList<>();
+    double x0;
+    double y0;
+    double eps;
+
     public Iteration(double x1, double x2, double y1, double y2, double accuracy) {
         super(x1, x2, y1, y2, accuracy);
+         x0 = (X2+X1) / 2;
+         y0 = (Y2+Y1) / 2;
+         eps = accuracy;
     }
 
-  /*  public String solve(){
-        double q = findMaxNorm();
-        return String.valueOf(q);
+    public String solve(){
+        return result.toString();
     }
-*/
-    private double findMaxNorm(){
-        double q = Double.MIN_NORMAL;
-        for (double x = X1; x <= X2; x += 0.001) {
-            for (double y = Y1; y <= Y2; y += 0.001) {
-                if(Math.abs(FI1poX(x,y)) + Math.abs(FI1poY(x,y)) > q || Math.abs(FI2poX(x,y)) + Math.abs(FI2poY(x,y)) > q ){
-                q = Math.max(Math.abs(FI1poX(x,y)) + Math.abs(FI1poY(x,y)) , Math.abs(FI2poX(x,y)) + Math.abs(FI2poY(x,y)));
-                }
+
+    public void solveSecondRoot(){
+        // Начальное значение
+        result.append("НАХОЖДЕНИЕ ВТОРОГО КОРНЯ:\n\n");
+        result.append("В качестве первого приближения примем:\n x = 0.3 x[0 ; 0.6]\n y = -1 y[-1.3 ; -0.7]\n\n");
+
+        double x0 = (X2+X1) / 2;
+        double y0 = (Y2+Y1) / 2;
+        double eps = 1e-10;
+
+
+
+        x.add(x0);
+        y.add(y0);
+        x.add(PHI1R2(x0,y0));
+        y.add(PHI2R2(x0,y0));
+
+        int i=1;
+        // ИТЕРАЦИИ
+        while (Math.abs(x.get(i)-x.get(i-1)) > eps && Math.abs(y.get(i)-y.get(i-1)) > eps){
+            x.add(PHI1R2(x.get(i),y.get(i)));
+            y.add(PHI2R2(x.get(i),y.get(i)));
+            if (i > 500){
+                result.append("Плохая функция\n");
+                break;
             }
+            result.append(String.format("Итерация №%d, решение: ( x = %.8f, y = %.8f)\n\n",i++,x.get(i),y.get(i)));
         }
-        return q;
-    }
-    public String solve() {
-        //if (!canWeCalculateNextStep()) return "Условие сходимости не выполнено. Значения функции не попадают в интервал";
-        if (!isNormaMatrixLessThanOne()){ return "ЧЛЕНИЩЕ";}
-        double q = findMaxNorm();
-        double zero_X = 1.5;
-        double zero_Y = 1.5;
-        double next_X;
-        double next_Y;
-        double epsilon;
-        System.out.println(124);
-        do{
-            next_X = F1(zero_X,zero_Y);
-            next_Y = F2(zero_X,zero_Y);
-
-            epsilon = q / (1 - q) * Math.max(Math.abs(next_X - zero_X), Math.abs(next_Y - zero_Y));
-
-            zero_X = next_X;
-            zero_Y = next_Y;
-
-        }while (epsilon > accuracy);
-
-        return String.format("X = %.4f\n Y = %.4f",zero_X,zero_Y);
-
-
+        result.append(String.format("ИТОГОВОЕ РЕШЕНИЕ: ( x = %.8f, y = %.8f)\n\n",x.get(i),y.get(i)));
     }
 
-    public boolean isNormaMatrixLessThanOne(){
-        for (double x = X1; x <= X2; x += accuracy) {
-            for (double y = Y1; y <= Y2; y += accuracy) {
 
-                System.out.print("F1poX + F1poY  ");
-                System.out.println(Math.abs(FI1poX(x,y)) + Math.abs(FI1poY(x,y)));
-                System.out.print("F2poX + F2poY   \n");
-                System.out.println(x);
-                System.out.println(y);
-                System.out.println(FI2poX(x, y));
-                System.out.println(Math.abs(FI2poX(x,y)));
-                System.out.println(Math.abs(FI2poY(x, y)));
-                System.out.println("//////////////////////////");
+    public void solveFirstRoot() {
+        // Начальное значение
+        result.append("НАХОЖДЕНИЕ ПЕРВОГО КОРНЯ:\n\n");
+        result.append("В качестве первого приближения примем:\n x = 0.8 x[0.4; 1.2]\n y = 0.8 y[0.4 ; 1.2]\n\n");
 
-                if ( Math.abs(FI1poX(x,y)) + Math.abs(FI1poY(x,y)) <= 1 && Math.abs(FI2poX(x,y)) + Math.abs(FI2poY(x,y)) <= 1) {
-                    return true;
-                }
+        double x0 = (X2+X1) / 2;
+        double y0 = (Y2+Y1) / 2;
+        double eps = 1e-10;
 
+        x.add(x0);
+        y.add(y0);
+        x.add(PHI1(x0,y0));
+        y.add(PHI2(x0,y0));
 
-
-
+        int i=1;
+        // ИТЕРАЦИИ
+        while (Math.abs(x.get(i)-x.get(i-1)) > eps && Math.abs(y.get(i)-y.get(i-1)) > eps){
+            x.add(PHI1(x.get(i),y.get(i)));
+            y.add(PHI2(x.get(i),y.get(i)));
+            if (i > 500){
+                result.append("Плохая функция\n");
+                break;
             }
+            result.append(String.format("Итерация №%d, решение: ( x = %.8f, y = %.8f)\n\n",i++,x.get(i),y.get(i)));
         }
-       return false;
+        result.append(String.format("ИТОГОВОЕ РЕШЕНИЕ: ( x = %.8f, y = %.8f)\n\n",x.get(i),y.get(i)));
     }
-
-   
-
 }
+
+
 class Test {
     public static void main(String[] args) {
-        Iteration iteration = new Iteration(0, 0.3, -1.3, -1.1, 0.01);
+        Iteration iteration = new Iteration(0, 0.6, -1.3, -0.7, 0.00001);
+        iteration.solveSecondRoot();
         System.out.println(iteration.solve());
     }
 }

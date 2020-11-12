@@ -71,19 +71,28 @@ public class Controller {
         });
 
         findRoot.setOnMouseClicked(event -> {
-            double x1 = Double.parseDouble(X1.getText());
-            double x2 = Double.parseDouble(X2.getText());
-            double y1 = Double.parseDouble(Y1.getText());
-            double y2 = Double.parseDouble(Y2.getText());
             double accuracy = Double.parseDouble(chooseAccuracy.getText());
-            Method method;
-            //if (iteration.isSelected()) {
-                method = new Newton(x1, x2, y1, y2, accuracy);
+
+            if (newton.isSelected()) {
+                double x1 = Double.parseDouble(X1.getText());
+                double x2 = Double.parseDouble(X2.getText());
+                double y1 = Double.parseDouble(Y1.getText());
+                double y2 = Double.parseDouble(Y2.getText());
+                Method  method = new Newton(x1, x2, y1, y2, accuracy);
             Image img = new Image("/img/Newton.png");
                 imageToShow.setImage(img);
-                //}
+                areaResult.setText(method.solve());
+                }
+            if (iteration.isSelected()){
+                imageToShow.setImage(null);
+                Iteration iteration1 = new Iteration(0.4,1.2,0.4,1.2,accuracy);
+                Iteration iteration2 = new Iteration(0,0.6,-1.3,-0.7,accuracy);
+                iteration1.solveFirstRoot();
+                iteration2.solveSecondRoot();
+                areaResult.setText(iteration1.solve());
+            }
 
-            areaResult.setText(method.solve());
+
 
         });
 
