@@ -148,6 +148,11 @@ public class TaskController {
             textArea.setPrefRowCount(10);
             StringBuilder result = new StringBuilder();
 
+
+            AreaChart<Number, Number> solution = new AreaChart<>(new NumberAxis(), new NumberAxis());
+            XYChart.Series<Number, Number> solutionSpline = new XYChart.Series<>();
+
+
             AreaChart<Number, Number> areaChart = new AreaChart<>(new NumberAxis(), new NumberAxis());
             XYChart.Series<Number, Number> spline1 = new XYChart.Series<>();
             XYChart.Series<Number, Number> spline2 = new XYChart.Series<>();
@@ -160,17 +165,21 @@ public class TaskController {
                 result.append(String.format("i = %d  [ %.2f ; %.2f ]  h = %.2f \na = %.4f\n b = %.4f\n c = %.4f\n d = %.4f\n\n\n", i+1,cubeSpline.getX()[i],cubeSpline.getX()[i+1],cubeSpline.getH()[i+1],cubeSpline.getaKOEF()[i],cubeSpline.getbKOEF()[i],cubeSpline.getcKOEF()[i],cubeSpline.getdKOEF()[i]));
             }
             result.append(String.format("Значение функции в точке 0.8 = %.2f",cubeSpline.calculateFuncInCoordinates(0.8,1)));
-            for (double x = cubeSpline.getX()[0]; x <= cubeSpline.getX()[1]; x += 0.01) {
+            for (double x = cubeSpline.getX()[0]; x < cubeSpline.getX()[1]; x += 0.01) {
                 spline1.getData().add(new XYChart.Data<>(x, cubeSpline.calculateFuncInCoordinates(x,0)));
+                solutionSpline.getData().add(new XYChart.Data<>(x, cubeSpline.calculateFuncInCoordinates(x,0)));
             }
-            for (double x = cubeSpline.getX()[1]; x <= cubeSpline.getX()[2]; x += 0.01) {
+            for (double x = cubeSpline.getX()[1]; x < cubeSpline.getX()[2]; x += 0.01) {
                 spline2.getData().add(new XYChart.Data<>(x, cubeSpline.calculateFuncInCoordinates(x,1)));
+                solutionSpline.getData().add(new XYChart.Data<>(x, cubeSpline.calculateFuncInCoordinates(x,1)));
             }
-            for (double x = cubeSpline.getX()[2]; x <= cubeSpline.getX()[3]; x += 0.01) {
+            for (double x = cubeSpline.getX()[2]; x < cubeSpline.getX()[3]; x += 0.01) {
                 spline3.getData().add(new XYChart.Data<>(x, cubeSpline.calculateFuncInCoordinates(x,2)));
+                solutionSpline.getData().add(new XYChart.Data<>(x, cubeSpline.calculateFuncInCoordinates(x,2)));
             }
             for (double x = cubeSpline.getX()[3]; x <= cubeSpline.getX()[4]; x += 0.01) {
                 spline4.getData().add(new XYChart.Data<>(x, cubeSpline.calculateFuncInCoordinates(x,3)));
+                solutionSpline.getData().add(new XYChart.Data<>(x, cubeSpline.calculateFuncInCoordinates(x,3)));
             }
             areaChart.getData().setAll(spline1,spline2,spline3,spline4);
             Scene scene = new Scene(areaChart);
@@ -178,6 +187,13 @@ public class TaskController {
             newWindow.setTitle("GRAPHICS");
             newWindow.setScene(scene);
             newWindow.show();
+
+            solution.getData().setAll(solutionSpline);
+            Scene solutionScene = new Scene(solution);
+            Stage solutionWindow = new Stage();
+            solutionWindow.setTitle("SOLUTION");
+            solutionWindow.setScene(solutionScene);
+            solutionWindow.show();
 
             textArea.setText(result.toString());
             Scene sceneText = new Scene(textArea);
