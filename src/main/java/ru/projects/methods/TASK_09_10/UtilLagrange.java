@@ -60,6 +60,5 @@ public class UtilLagrange {
     private double fourthKOEF(double X0, double X1, double X2, double X3){
         return Func(X3) / Omega3(X0,X1,X2,X3);
     }
-
-
 }
+
