@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="183.0" prefWidth="298.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.projects.methods.TASK_11_12.DrawController">
+   <children>
+      <Button fx:id="task_11" layoutX="37.0" layoutY="32.0" mnemonicParsing="false" text="Графики для многочленов и функции" />
+      <Button layoutX="123.0" layoutY="79.0" mnemonicParsing="false" text="Button" />
+      <Button layoutX="123.0" layoutY="122.0" mnemonicParsing="false" text="Button" />
+   </children>
+</AnchorPane>
