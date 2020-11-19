@@ -1,19 +1,16 @@
 package ru.projects.methods.TASK_07_08;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 import static ru.projects.methods.TASK_07_08.Util.*;
-
+import static ru.projects.methods.TASK_07_08.Util.PHI2R2;
 
 
 public class Iteration extends Method {
 
     private static StringBuilder result = new StringBuilder();
-    private List<Double> x = new ArrayList<>();
-    private List<Double> y = new ArrayList<>();
     double x0;
     double y0;
     double eps;
@@ -36,9 +33,9 @@ public class Iteration extends Method {
 
         double x0 = (X2+X1) / 2;
         double y0 = (Y2+Y1) / 2;
-        double eps = 1e-10;
 
-
+        List<Double> x = new ArrayList<>();
+        List<Double> y = new ArrayList<>();
 
         x.add(x0);
         y.add(y0);
@@ -50,13 +47,17 @@ public class Iteration extends Method {
         while (Math.abs(x.get(i)-x.get(i-1)) > eps && Math.abs(y.get(i)-y.get(i-1)) > eps){
             x.add(PHI1R2(x.get(i),y.get(i)));
             y.add(PHI2R2(x.get(i),y.get(i)));
+            double m = Math.pow(PHI1NOR(x.get(i),y.get(i)),2) + Math.pow(PHI2NOR(x.get(i),y.get(i)),2);
+            result.append(String.format("CУММА КВАДРАТОВ ФУНКЦИЙ - %.12f\n",m));
             if (i > 500){
                 result.append("Плохая функция\n");
                 break;
             }
             result.append(String.format("Итерация №%d, решение: ( x = %.8f, y = %.8f)\n\n",i++,x.get(i),y.get(i)));
         }
-        result.append(String.format("ИТОГОВОЕ РЕШЕНИЕ: ( x = %.8f, y = %.8f)\n\n",x.get(i),y.get(i)));
+        result.append("сумма квадратов при поиске второго корня приближается к 0:\n");
+        result.append(Math.pow(PHI1NOR(x.get(i),y.get(i)),2) + Math.pow(PHI2NOR(x.get(i),y.get(i)),2));
+        result.append(String.format("\nИТОГОВОЕ РЕШЕНИЕ: ( x = %.8f, y = %.8f)\n\n",x.get(i),y.get(i)));
     }
 
 
@@ -67,7 +68,9 @@ public class Iteration extends Method {
 
         double x0 = (X2+X1) / 2;
         double y0 = (Y2+Y1) / 2;
-        double eps = 1e-10;
+
+        List<Double> x = new ArrayList<>();
+        List<Double> y = new ArrayList<>();
 
         x.add(x0);
         y.add(y0);
@@ -79,22 +82,18 @@ public class Iteration extends Method {
         while (Math.abs(x.get(i)-x.get(i-1)) > eps && Math.abs(y.get(i)-y.get(i-1)) > eps){
             x.add(PHI1(x.get(i),y.get(i)));
             y.add(PHI2(x.get(i),y.get(i)));
+            double m = Math.pow(PHI1NOR(x.get(i),y.get(i)),2) + Math.pow(PHI2NOR(x.get(i),y.get(i)),2);
+            result.append(String.format("CУММА КВАДРАТОВ ФУНКЦИЙ - %.12f\n",m));
             if (i > 500){
                 result.append("Плохая функция\n");
                 break;
             }
             result.append(String.format("Итерация №%d, решение: ( x = %.8f, y = %.8f)\n\n",i++,x.get(i),y.get(i)));
         }
-        result.append(String.format("ИТОГОВОЕ РЕШЕНИЕ: ( x = %.8f, y = %.8f)\n\n",x.get(i),y.get(i)));
+        result.append("сумма квадратов при поиске первого корня приближается к 0:\n");
+        result.append(Math.pow(PHI1NOR(x.get(i),y.get(i)),2) + Math.pow(PHI2NOR(x.get(i),y.get(i)),2));
+        result.append(String.format("\nИТОГОВОЕ РЕШЕНИЕ: ( x = %.8f, y = %.8f)\n\n",x.get(i),y.get(i)));
     }
 }
 
-
-class Test {
-    public static void main(String[] args) {
-        Iteration iteration = new Iteration(0, 0.6, -1.3, -0.7, 0.00001);
-        iteration.solveSecondRoot();
-        System.out.println(iteration.solve());
-    }
-}
 

@@ -71,9 +71,9 @@ public class Controller {
         });
 
         findRoot.setOnMouseClicked(event -> {
-            double accuracy = Double.parseDouble(chooseAccuracy.getText());
 
             if (newton.isSelected()) {
+                double accuracy = Double.parseDouble(chooseAccuracy.getText());
                 double x1 = Double.parseDouble(X1.getText());
                 double x2 = Double.parseDouble(X2.getText());
                 double y1 = Double.parseDouble(Y1.getText());
@@ -85,15 +85,12 @@ public class Controller {
                 }
             if (iteration.isSelected()){
                 imageToShow.setImage(null);
-                Iteration iteration1 = new Iteration(0.4,1.2,0.4,1.2,accuracy);
-                Iteration iteration2 = new Iteration(0,0.6,-1.3,-0.7,accuracy);
+                Iteration iteration1 = new Iteration(0.4,1.2,0.4,1.2,1e-10);
+                Iteration iteration2 = new Iteration(0,0.6,-1.3,-0.7,1e-10);
                 iteration1.solveFirstRoot();
                 iteration2.solveSecondRoot();
                 areaResult.setText(iteration1.solve());
             }
-
-
-
         });
 
         //CHECKBOX LOGIC

@@ -40,12 +40,20 @@ public class Util {
     }
 
     //SECOND
+    public static double PHI1NOR(double x, double y){
+        return 3 * x * x - y + y * y - 3;
+    }
+
     public static double PHI1(double x, double y) {
         return Math.sqrt((1. / 3) * (3 - y * y + y));
     }
 
     public static double PHI2(double x, double y) {
         return (x + 1) * (x + 1) - 3;
+    }
+
+    public static double PHI2NOR(double x, double y){
+        return x - Math.sqrt(y+3) + 1;
     }
 
     public static double PHI1R2(double x, double y) {
