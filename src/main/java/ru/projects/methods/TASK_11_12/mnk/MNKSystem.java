@@ -1,11 +1,10 @@
-package ru.projects.methods.TASK_11_12;
+package ru.projects.methods.TASK_11_12.mnk;
 
 import org.apache.commons.math3.linear.*;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.DoubleStream;
-import java.util.stream.Stream;
 
 public class MNKSystem {
 
@@ -68,6 +67,8 @@ public class MNKSystem {
         A0andA1andA2ForSecondFunc = solution.toArray();
     }
 
+
+
     private void createMatrixOfKoef() {
         for (int i = 0; i < len; i++) {
             for (int j = 0; j < len; j++) {
@@ -122,19 +123,4 @@ public class MNKSystem {
                 .map(n -> Math.pow(n.get(xORy), degree))
                 .flatMapToDouble(DoubleStream::of).sum();
     }
-
-    public void print() {
-        Stream.of(mapOfMNKSystem_XY).forEach(System.out::println);
-        System.out.println(Arrays.deepToString(matrixOfKoef));
-        System.out.println(Arrays.toString(vectorOfMatrixKoef));
-        System.out.println(Arrays.toString(A0andA1ForFirstFunc));
-        System.out.println(Arrays.toString(A0andA1andA2ForSecondFunc));
-    }
 }
-
-class Test{
-    public static void main(String[] args) {
-        MNKSystem mnkSystem = new MNKSystem(2,new double[][]{{0.0,0.0},{1.7,1.3038},{3.4,1.8439},{5.1,2.2583},{6.8,2.6077},{8.5,2.9155}});
-
-        mnkSystem.print();
-    }}
