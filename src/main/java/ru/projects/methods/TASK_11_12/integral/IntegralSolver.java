@@ -10,15 +10,16 @@ public class IntegralSolver {
 
     public IntergralSolverInterface methodLeftRectangles = (() -> {
         double sum = 0;
-        for (double i = integralRange.getX0(); i < integralRange.getXK(); i += integralRange.getH()) {
+        for (double i = integralRange.getX0(); i <= integralRange.getXK(); i += integralRange.getH()) {
             sum += integralRange.getH() * IntegralUtil.func(i);
+            System.out.println(sum);
         }
         return sum;
     });
 
     public IntergralSolverInterface methodRightRectangles = (() -> {
         double sum = 0;
-        for (double i = integralRange.getX0() + integralRange.getH(); i <= integralRange.getXK(); i += integralRange.getH()) {
+        for (double i = integralRange.getX0(); i <= integralRange.getXK(); i += integralRange.getH()) {
             sum += integralRange.getH() * IntegralUtil.func(i);
         }
         return sum;

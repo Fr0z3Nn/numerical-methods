@@ -20,6 +20,10 @@ public class DrawController {
     public Button task_12_1;
     public Button task_12_2;
 
+    static double methodRygneRobengra(double F1, double F2, double p) {
+        return F1 + (F1- F2) / (Math.pow(2, p) - 1);
+    }
+
     @FXML
     public void initialize() {
         task_12_1.setOnMouseClicked(event -> {
@@ -47,37 +51,49 @@ public class DrawController {
             textArea.setPrefRowCount(10);
             StringBuilder result = new StringBuilder();
 
-            IntegralRange integralRange = new IntegralRange(-1, 1, 0.5);
+            IntegralRange integralRange = new IntegralRange(-2,2, 1);
             IntegralSolver integralSolver = new IntegralSolver(integralRange);
 
             double exactValue = IntegralUtil.integralExactValue();
             result.append(String.format("ТОЧНОЕ ЗНАЧЕНИЕ: %.5f\n", exactValue));
             result.append(String.format("ШАГ: %.5f\n", integralRange.getH()));
             double left = integralSolver.methodLeftRectangles.solve();
-            result.append(String.format("метод левых: %.5f  ПОГРЕШНОСТЬ: %.4f\n", left, exactValue - left));
+            result.append(String.format("метод левых: %.8f  ПОГРЕШНОСТЬ: %.8f\n", left, exactValue - left));
             double right = integralSolver.methodRightRectangles.solve();
-            result.append(String.format("метод правых: %.5f ПОГРЕШНОСТЬ: %.4f\n", right, exactValue - right));
+            result.append(String.format("метод правых: %.8f ПОГРЕШНОСТЬ: %.8f\n", right, exactValue - right));
             double middle = integralSolver.methodMiddleRectangles.solve();
-            result.append(String.format("метод средних: %.5f ПОГРЕШНОСТЬ: %.4f\n", middle, exactValue - middle));
+            result.append(String.format("метод средних: %.8f ПОГРЕШНОСТЬ: %.8f\n", middle, exactValue - middle));
             double trapeze = integralSolver.methodTrapeze.solve();
-            result.append(String.format("метод трапеций: %.5f ПОГРЕШНОСТЬ: %.4f\n", trapeze, exactValue - trapeze));
+            result.append(String.format("метод трапеций: %.8f ПОГРЕШНОСТЬ: %.8f\n", trapeze, exactValue - trapeze));
             double simpson = integralSolver.methodSimpson.solve();
-            result.append(String.format("метод Симпсона: %.5f ПОГРЕШНОСТЬ: %.4f\n", simpson, exactValue - simpson));
+            result.append(String.format("метод Симпсона: %.8f ПОГРЕШНОСТЬ: %.8f\n", simpson, exactValue - simpson));
 
-            IntegralRange integralRange1 = new IntegralRange(-1, 1, 0.25);
+            IntegralRange integralRange1 = new IntegralRange(-2,2,0.5);
             IntegralSolver integralSolver1 = new IntegralSolver(integralRange1);
 
             result.append(String.format("ШАГ: %.5f\n", integralRange1.getH()));
             double left1 = integralSolver1.methodLeftRectangles.solve();
-            result.append(String.format("метод левых: %.5f  ПОГРЕШНОСТЬ: %.4f\n", left1, exactValue - left1));
+            result.append(String.format("метод левых: %.8f  ПОГРЕШНОСТЬ: %.8f\n", left1, exactValue - left1));
             double right1 = integralSolver1.methodRightRectangles.solve();
-            result.append(String.format("метод правых: %.5f ПОГРЕШНОСТЬ: %.4f\n", right1, exactValue - right1));
+            result.append(String.format("метод правых: %.8f ПОГРЕШНОСТЬ: %.8f\n", right1, exactValue - right1));
             double middle1 = integralSolver1.methodMiddleRectangles.solve();
-            result.append(String.format("метод средних: %.5f ПОГРЕШНОСТЬ: %.4f\n", middle1, exactValue - middle1));
+            result.append(String.format("метод средних: %.8f ПОГРЕШНОСТЬ: %.8f\n", middle1, exactValue - middle1));
             double trapeze1 = integralSolver1.methodTrapeze.solve();
-            result.append(String.format("метод трапеций: %.5f ПОГРЕШНОСТЬ: %.4f\n", trapeze1, exactValue - trapeze1));
+            result.append(String.format("метод трапеций: %.8f ПОГРЕШНОСТЬ: %.8f\n", trapeze1, exactValue - trapeze1));
             double simpson1 = integralSolver1.methodSimpson.solve();
-            result.append(String.format("метод Симпсона: %.5f ПОГРЕШНОСТЬ: %.4f\n", simpson1, exactValue - simpson1));
+            result.append(String.format("метод Симпсона: %.8f ПОГРЕШНОСТЬ: %.8f\n", simpson1, exactValue - simpson1));
+
+            result.append("Внесенные уточнения:\n");
+            double leftY = methodRygneRobengra(left1,left,1);
+            result.append(String.format("метод левых: %.8f  ПОГРЕШНОСТЬ: %.8f\n", leftY, exactValue - leftY));
+            double rightY = methodRygneRobengra(right1,right,1);
+            result.append(String.format("метод правых: %.8f ПОГРЕШНОСТЬ: %.8f\n", rightY, exactValue - rightY));
+            double middleY = methodRygneRobengra(middle1,middle,2);
+            result.append(String.format("метод средних: %.8f ПОГРЕШНОСТЬ: %.8f\n", middleY, exactValue - middleY));
+            double trapezeY = methodRygneRobengra(trapeze1,trapeze,2);
+            result.append(String.format("метод трапеций: %.8f ПОГРЕШНОСТЬ: %.8f\n", trapezeY, exactValue - trapezeY));
+            double simpsonY = methodRygneRobengra(simpson1,simpson,4);
+            result.append(String.format("метод Симпсона: %.8f ПОГРЕШНОСТЬ: %.8f\n", simpsonY, exactValue - simpsonY));
 
             textArea.setText(result.toString());
             Scene scene = new Scene(textArea);
@@ -119,18 +135,4 @@ public class DrawController {
     }
 }
 
-class Test {
-    public static void main(String[] args) {
 
-        System.out.println(Integer.valueOf(717) == Integer.valueOf(717));
-        System.out.println(String.valueOf(3) == String.valueOf(3));
-        System.out.println(String.valueOf(717) == String.valueOf(717));
-        System.out.println(Integer.valueOf(3) == Integer.valueOf(3));
-        System.out.println(Integer.valueOf(3).toString() == Integer.valueOf(3).toString());
-        System.out.println(Integer.valueOf(717).toString() == Integer.valueOf(717).toString());
-        System.out.println("12" == "12");
-        System.out.println("12" == new String("12"));
-        System.out.println(new String("12") == new String("12"));
-        System.out.println("12" == new String("12").intern());
-    }
-}
