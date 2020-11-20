@@ -24,7 +24,7 @@ public class IntegralSolver {
         }
         return sum;
     });
-
+//
     public IntergralSolverInterface methodMiddleRectangles = (() -> {
         double sum = 0;
         for (double i = integralRange.getX0(); i < integralRange.getXK(); i += integralRange.getH()) {
