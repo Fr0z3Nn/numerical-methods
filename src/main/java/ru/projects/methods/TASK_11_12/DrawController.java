@@ -58,42 +58,42 @@ public class DrawController {
             result.append(String.format("ТОЧНОЕ ЗНАЧЕНИЕ: %.5f\n", exactValue));
             result.append(String.format("ШАГ: %.5f\n", integralRange.getH()));
             double left = integralSolver.methodLeftRectangles.solve();
-            result.append(String.format("метод левых: %.8f  ПОГРЕШНОСТЬ: %.8f\n", left, exactValue - left));
+            result.append(String.format("метод левых: %.5e  ПОГРЕШНОСТЬ: %.5e\n", left, exactValue - left));
             double right = integralSolver.methodRightRectangles.solve();
-            result.append(String.format("метод правых: %.8f ПОГРЕШНОСТЬ: %.8f\n", right, exactValue - right));
+            result.append(String.format("метод правых: %.5e ПОГРЕШНОСТЬ: %.5e\n", right, exactValue - right));
             double middle = integralSolver.methodMiddleRectangles.solve();
-            result.append(String.format("метод средних: %.8f ПОГРЕШНОСТЬ: %.8f\n", middle, exactValue - middle));
+            result.append(String.format("метод средних: %.5e ПОГРЕШНОСТЬ: %.5e\n", middle, exactValue - middle));
             double trapeze = integralSolver.methodTrapeze.solve();
-            result.append(String.format("метод трапеций: %.8f ПОГРЕШНОСТЬ: %.8f\n", trapeze, exactValue - trapeze));
+            result.append(String.format("метод трапеций: %.5e ПОГРЕШНОСТЬ: %.5e\n", trapeze, exactValue - trapeze));
             double simpson = integralSolver.methodSimpson.solve();
-            result.append(String.format("метод Симпсона: %.8f ПОГРЕШНОСТЬ: %.8f\n", simpson, exactValue - simpson));
+            result.append(String.format("метод Симпсона: %.5e ПОГРЕШНОСТЬ: %.5e\n", simpson, exactValue - simpson));
 
             IntegralRange integralRange1 = new IntegralRange(-2,2,0.5);
             IntegralSolver integralSolver1 = new IntegralSolver(integralRange1);
 
             result.append(String.format("ШАГ: %.5f\n", integralRange1.getH()));
             double left1 = integralSolver1.methodLeftRectangles.solve();
-            result.append(String.format("метод левых: %.8f  ПОГРЕШНОСТЬ: %.8f\n", left1, exactValue - left1));
+            result.append(String.format("метод левых: %.5e  ПОГРЕШНОСТЬ: %.5e\n", left1, exactValue - left1));
             double right1 = integralSolver1.methodRightRectangles.solve();
-            result.append(String.format("метод правых: %.8f ПОГРЕШНОСТЬ: %.8f\n", right1, exactValue - right1));
+            result.append(String.format("метод правых: %.5e ПОГРЕШНОСТЬ: %.5e\n", right1, exactValue - right1));
             double middle1 = integralSolver1.methodMiddleRectangles.solve();
-            result.append(String.format("метод средних: %.8f ПОГРЕШНОСТЬ: %.8f\n", middle1, exactValue - middle1));
+            result.append(String.format("метод средних: %.5e ПОГРЕШНОСТЬ: %.5e\n", middle1, exactValue - middle1));
             double trapeze1 = integralSolver1.methodTrapeze.solve();
-            result.append(String.format("метод трапеций: %.8f ПОГРЕШНОСТЬ: %.8f\n", trapeze1, exactValue - trapeze1));
+            result.append(String.format("метод трапеций: %.5e ПОГРЕШНОСТЬ: %.5e\n", trapeze1, exactValue - trapeze1));
             double simpson1 = integralSolver1.methodSimpson.solve();
-            result.append(String.format("метод Симпсона: %.8f ПОГРЕШНОСТЬ: %.8f\n", simpson1, exactValue - simpson1));
+            result.append(String.format("метод Симпсона: %.5e ПОГРЕШНОСТЬ: %.5e\n", simpson1, exactValue - simpson1));
 
             result.append("Внесенные уточнения:\n");
             double leftY = methodRygneRobengra(left1,left,1);
-            result.append(String.format("метод левых: %.8f  ПОГРЕШНОСТЬ: %.8f\n", leftY, exactValue - leftY));
+            result.append(String.format("метод левых: %.5e  ПОГРЕШНОСТЬ: %.5e\n", leftY, exactValue - leftY));
             double rightY = methodRygneRobengra(right1,right,1);
-            result.append(String.format("метод правых: %.8f ПОГРЕШНОСТЬ: %.8f\n", rightY, exactValue - rightY));
+            result.append(String.format("метод правых: %.5e ПОГРЕШНОСТЬ: %.5e\n", rightY, exactValue - rightY));
             double middleY = methodRygneRobengra(middle1,middle,2);
-            result.append(String.format("метод средних: %.8f ПОГРЕШНОСТЬ: %.8f\n", middleY, exactValue - middleY));
+            result.append(String.format("метод средних: %.5e ПОГРЕШНОСТЬ: %.5e\n", middleY, exactValue - middleY));
             double trapezeY = methodRygneRobengra(trapeze1,trapeze,2);
-            result.append(String.format("метод трапеций: %.8f ПОГРЕШНОСТЬ: %.8f\n", trapezeY, exactValue - trapezeY));
+            result.append(String.format("метод трапеций: %.5e ПОГРЕШНОСТЬ: %.5e\n", trapezeY, exactValue - trapezeY));
             double simpsonY = methodRygneRobengra(simpson1,simpson,4);
-            result.append(String.format("метод Симпсона: %.8f ПОГРЕШНОСТЬ: %.8f\n", simpsonY, exactValue - simpsonY));
+            result.append(String.format("метод Симпсона: %.5e ПОГРЕШНОСТЬ: %.5e\n", simpsonY, exactValue - simpsonY));
 
             textArea.setText(result.toString());
             Scene scene = new Scene(textArea);
@@ -121,6 +121,11 @@ public class DrawController {
                 POLYNOMIAL1.getData().add(new XYChart.Data<>(x,mnkSystem.func1(x)));
                 POLYNOMIAL2.getData().add(new XYChart.Data<>(x,mnkSystem.func2(x)));
             }
+
+            System.out.println("Сумма квадратов ошибок:\n");
+            System.out.printf("Для первого многочлена = %.5f\n",Math.pow(100-mnkSystem.func1(0.1),2)+Math.pow(4.0-mnkSystem.func1(0.5),2)+Math.pow(1.2346-mnkSystem.func1(0.9),2)+Math.pow(0.59172-mnkSystem.func1(1.3),2)+Math.pow(0.34602-mnkSystem.func1(1.7),2)+Math.pow(0.22676-mnkSystem.func1(2.1),2));
+            System.out.printf("Для второго многочлена = %.5f\n",Math.pow(100-mnkSystem.func2(0.1),2)+Math.pow(4.0-mnkSystem.func2(0.5),2)+Math.pow(1.2346-mnkSystem.func2(0.9),2)+Math.pow(0.59172-mnkSystem.func2(1.3),2)+Math.pow(0.34602-mnkSystem.func2(1.7),2)+Math.pow(0.22676-mnkSystem.func2(2.1),2));
+
 
             FUNC.setName("FUNC");
             POLYNOMIAL1.setName("POLYNOMIAL1");
