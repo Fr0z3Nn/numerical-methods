@@ -9,11 +9,12 @@ public class Zeidel extends Yakobi{
     }
 
     @Override
+    @SuppressWarnings("all")
     public void findRoots() {
         double epsilon;
         double delta;
         double matrixNorm = normMatrix(augmentedMatrix);
-        double vectorNorm = normVector(augmentedMatrix);
+
 
         System.out.println("МЕТОД ЗЕЙДЕЛЯ: ");
 

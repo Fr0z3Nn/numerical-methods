@@ -54,7 +54,7 @@ public class Yakobi {
         double epsilon;
         double delta;
         double matrixNorm = normMatrix(augmentedMatrix);
-        double vectorNorm = normVector(augmentedMatrix);
+
 
         System.out.println("МЕТОД ЯКОБИ: ");
 
