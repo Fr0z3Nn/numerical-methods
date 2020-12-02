@@ -1,6 +1,9 @@
 package ru.projects.methods.TASK_13_14;
 
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Euler extends Method {
 
     public Euler() {
@@ -11,23 +14,28 @@ public class Euler extends Method {
     public void initialization() {
 
         for (int i = 0; i <= x.size() - 1; i++) {
-            z.add(z.get(i) + h * gFunc(x.get(i), y.get(i), z.get(i)));
-            delta_z.add(h * gFunc(x.get(i), y.get(i), z.get(i)));
-            y.add(y.get(i) + h * fFunc(y.get(i), y.get(i), y.get(i)));
-            delta_y.add(h * fFunc(y.get(i), y.get(i), y.get(i)));
+
+            double g = gFunc(x.get(i), y.get(i), z.get(i));
+            double f = fFunc(x.get(i), y.get(i), z.get(i));
+
+            z.add(z.get(i) + h * g);
+            delta_z.add(h * g);
+            y.add(y.get(i) + h * f);
+            delta_y.add(h * f);
+
         }
 
     }
 
-    public String addResult() {
+    public ArrayList<EulerTable> createCells() {
 
-        StringBuilder res = new StringBuilder();
+        ArrayList<EulerTable> forTable = new ArrayList<>();
 
         for (int i = 0; i <= x.size() - 1; i++) {
-            res.append(String.format("%.3f  %.3f  %.3f  %.3f  %.3f  %.3f  %.3f  %.3f\n", (double) i, x.get(i), y.get(i), z.get(i), delta_z.get(i), delta_y.get(i), istFunc(x.get(i)), Math.abs(istFunc(x.get(i)) - y.get(i))));
-        }
+                forTable.add(new EulerTable(i, x.get(i), y.get(i), z.get(i), delta_z.get(i), delta_y.get(i), istFunc(x.get(i)), Math.abs(istFunc(x.get(i)) - y.get(i))));
+            }
 
-        return res.toString();
+        return forTable;
     }
 
 
