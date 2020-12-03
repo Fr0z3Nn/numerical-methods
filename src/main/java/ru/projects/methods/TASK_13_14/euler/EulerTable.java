@@ -1,19 +1,22 @@
-package ru.projects.methods.TASK_13_14;
+package ru.projects.methods.TASK_13_14.euler;
 
 import org.apache.commons.math3.util.Precision;
 
 public class EulerTable {
     private int i;
+    private double h;
     private double x;
     private double y;
     private double z;
+
     private String delta_z;
     private String delta_y;
     private double istY;
     private double accuracy;
 
-    public EulerTable(int i, double x, double y, double z, double delta_z, double delta_y, double istY, double accuracy) {
+    public EulerTable(int i, double h, double x, double y, double z, double delta_z, double delta_y, double istY, double accuracy) {
         this.i = i;
+        this.h = h;
         this.x = Precision.round(x,4);
         this.y = Precision.round(y,4);
         this.z = Precision.round(z,4);
@@ -95,5 +98,12 @@ public class EulerTable {
 
     public void setAccuracy(double accuracy) {
         this.accuracy = accuracy;
+    }
+    public double getH() {
+        return h;
+    }
+
+    public void setH(double h) {
+        this.h = h;
     }
 }
