@@ -16,6 +16,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import ru.projects.methods.TASK_13_14.adams.Adams;
+import ru.projects.methods.TASK_13_14.adams.AdamsTable;
 import ru.projects.methods.TASK_13_14.euler.Euler;
 import ru.projects.methods.TASK_13_14.euler.EulerTable;
 import ru.projects.methods.TASK_13_14.euler_koshi.EulerKoshi;
@@ -35,9 +37,17 @@ public class MainController {
     public Button eulerkoshi13;
     @FXML
     public Button ryngekyt14;
+    @FXML
+    public Button adams14;
 
     @FXML
     public void initialize() {
+
+        ArrayList<AdamsTable> adamsListH1 = new Adams(0.1).createCells();
+        ArrayList<AdamsTable> adamsListH2 = new Adams(0.05).createCells();
+        ArrayList<AdamsTable> adamsList = new ArrayList<>();
+        adamsList.addAll(adamsListH1);
+        adamsList.addAll(adamsListH2);
 
         ArrayList<RyngeKytTable> ryngeKytListH1 = new RyngeKyt(0.1).createCells();
         ArrayList<RyngeKytTable> ryngeKytListH2 = new RyngeKyt(0.05).createCells();
@@ -56,6 +66,8 @@ public class MainController {
         ArrayList<EulerTable> eulerList = new ArrayList<>();
         eulerList.addAll(eulerListH1);
         eulerList.addAll(eulerListH2);
+
+
 
         graph13.setOnMouseClicked(event -> {
             AreaChart<Number, Number> areaChart = new AreaChart<>(new NumberAxis(3,4,0.1), new NumberAxis());
@@ -207,9 +219,7 @@ public class MainController {
             for (int i = 0; i <= eulerKoshiListH1.size() - 1; i++) {
 
                 double F1 = eulerKoshiListH1.get(i).getY();
-                System.out.println(F1);
                 double F2 = eulerKoshiListH2.get(2*i).getY();
-                System.out.println(F2);
                 double RR = F2 + ((F2 - F1) / (Math.pow(2, 3) - 1));
                 res.append(String.format("x - %.3f  y - %.3f    acc - %.3f\n", eulerKoshiListH1.get(i).getX(), RR, Math.abs(RR - eulerKoshiListH1.get(i).getIstY())));
 
@@ -293,6 +303,77 @@ public class MainController {
             Scene scene1 = new Scene(textArea);
             Stage newWindow1 = new Stage();
             newWindow1.setTitle("Rynge-Kyt");
+            newWindow1.setScene(scene1);
+            newWindow1.show();
+        });
+
+        adams14.setOnMouseClicked(event ->{
+
+            TableView<AdamsTable> table = new TableView<>();
+
+            TableColumn<AdamsTable, Integer> iColumn = new TableColumn<>("i");
+            TableColumn<AdamsTable, Integer> hColumn = new TableColumn<>("h");
+            TableColumn<AdamsTable, Double> xColumn = new TableColumn<>("x");
+            TableColumn<AdamsTable, Double> yColumn = new TableColumn<>("y");
+            TableColumn<AdamsTable, Double> ydColumn = new TableColumn<>("yd");
+            TableColumn<AdamsTable, Double> yddColumn = new TableColumn<>("ydd");
+            TableColumn<AdamsTable, Double> zColumn = new TableColumn<>("z");
+            TableColumn<AdamsTable, String> delta_zColumn = new TableColumn<>("delta_z");
+            TableColumn<AdamsTable, String> delta_yColumn = new TableColumn<>("delta_y");
+            TableColumn<AdamsTable, Double> istYColumn = new TableColumn<>("istY");
+            TableColumn<AdamsTable, String> accuracyColumn = new TableColumn<>("accuracy");
+
+            iColumn.setCellValueFactory(new PropertyValueFactory<>("i"));
+            hColumn.setCellValueFactory(new PropertyValueFactory<>("h"));
+            xColumn.setCellValueFactory(new PropertyValueFactory<>("x"));
+            yColumn.setCellValueFactory(new PropertyValueFactory<>("y"));
+            ydColumn.setCellValueFactory(new PropertyValueFactory<>("yd"));
+            yddColumn.setCellValueFactory(new PropertyValueFactory<>("ydd"));
+            zColumn.setCellValueFactory(new PropertyValueFactory<>("z"));
+            delta_zColumn.setCellValueFactory(new PropertyValueFactory<>("delta_z"));
+            delta_yColumn.setCellValueFactory(new PropertyValueFactory<>("delta_y"));
+            istYColumn.setCellValueFactory(new PropertyValueFactory<>("istY"));
+            accuracyColumn.setCellValueFactory(new PropertyValueFactory<>("accuracy"));
+
+            ObservableList<AdamsTable> list = FXCollections.observableArrayList();
+            list.setAll(adamsList);
+            table.setItems(list);
+
+            table.getColumns().addAll(iColumn, hColumn, xColumn, yColumn,ydColumn,yddColumn, istYColumn, accuracyColumn);
+
+            StackPane root = new StackPane();
+            root.setPadding(new Insets(5));
+            root.getChildren().add(table);
+
+            Scene scene = new Scene(root);
+            Stage newWindow = new Stage();
+
+            newWindow.setTitle("Адамс таблица");
+            newWindow.setScene(scene);
+            newWindow.show();
+
+            /////RYNGE ROBERG
+
+            StringBuilder res = new StringBuilder();
+
+            for (int i = 0; i <= adamsListH1.size() - 1; i++) {
+
+                double F1 = adamsListH1.get(i).getY();
+                double F2 = adamsListH2.get(2*i).getY();
+                double RR = F2 + ((F2 - F1) / (Math.pow(2, 4) - 1));
+                res.append(String.format("x - %.3f  y - %.3f    acc - %.3e\n", adamsListH1.get(i).getX(), RR, Math.abs(RR - adamsListH1.get(i).getIstY())));
+
+            }
+
+            TextArea textArea = new TextArea();
+            textArea.setPrefColumnCount(50);
+            textArea.setPrefRowCount(10);
+
+            textArea.setText(res.toString());
+
+            Scene scene1 = new Scene(textArea);
+            Stage newWindow1 = new Stage();
+            newWindow1.setTitle("Adams");
             newWindow1.setScene(scene1);
             newWindow1.show();
         });
