@@ -20,8 +20,6 @@ public abstract class Method {
         this.h = h;
         y.add(2.0);
         z.add(2.0);
-        delta_y.add(0.0);
-        delta_z.add(0.0);
         for (; Precision.round(a, 3) <= b; a += h) {
             x.add(a);
         }

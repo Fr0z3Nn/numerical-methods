@@ -14,12 +14,14 @@ public class EulerKoshi extends Method {
         super(h);
         yr.add(2.0);
         zr.add(2.0);
+        delta_y.add(0.0);
+        delta_z.add(0.0);
         initialization();
     }
 
     @Override
     protected void initialization() {
-        for (int i = 0; i <= x.size() - 2; i++) {
+        for (int i = 0; i < x.size() - 1; i++) {
             zr.add(z.get(i) + h * gFunc(x.get(i), y.get(i), z.get(i)));
             yr.add(y.get(i) + h * fFunc(x.get(i), y.get(i), z.get(i)));
             z.add(z.get(i) + (h / 2) * (gFunc(x.get(i), y.get(i), z.get(i)) + gFunc(x.get(i + 1), yr.get(i), zr.get(i + 1))));

@@ -9,6 +9,8 @@ public class Euler extends Method {
 
     public Euler(double h) {
         super(h);
+        delta_y.add(0.0);
+        delta_z.add(0.0);
         initialization();
     }
 
