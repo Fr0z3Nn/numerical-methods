@@ -22,7 +22,7 @@ public class StartShooting {
             System.out.print(String.format("x = %.2f ", listX1.get(i)));
             double rynge = listY1.get(i) + (listY1.get(i) - listY2.get(2*i)) / (Math.pow(0.5, 4) - 1);
             System.out.print(String.format("y = %.2f ",  rynge));
-            System.out.println(String.format("EPS = %.2f ", Math.abs(shooting1.func(listX1.get(i)) - rynge)));
+            System.out.println(String.format("EPS = %.6f ", Math.abs(shooting1.func(listX1.get(i)) - rynge)));
         }
     }
 }

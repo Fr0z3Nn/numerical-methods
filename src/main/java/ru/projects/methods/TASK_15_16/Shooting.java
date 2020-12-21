@@ -60,7 +60,7 @@ public class Shooting {
                 z.add(z.get(i) + deltaZ.get(i));
                 System.out.print(String.format("y_ист = %.2f ", func(x.get(i))));
                 System.out.print(String.format("z = %.2f ", z.get(i)));
-                System.out.println(String.format("EPS = %.2f ", Math.abs(func(x.get(i)) - y.get(i))));
+                System.out.println(String.format("EPS = %.6f ", Math.abs(func(x.get(i)) - y.get(i))));
             }
             Betta.add(y.get(y.size() - 1));
             F.add(Math.abs(Betta.get(r) - BettaK));
