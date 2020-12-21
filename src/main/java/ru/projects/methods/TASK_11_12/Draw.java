@@ -18,7 +18,7 @@ public class Draw extends Application {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
 
-        primaryStage.setResizable(false);
+        
         primaryStage.show();
     }
 

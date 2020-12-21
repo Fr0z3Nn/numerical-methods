@@ -9,10 +9,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="390.0" prefWidth="753.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="ru.projects.methods.TASK_07_08.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="735.0" prefWidth="1279.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.projects.methods.TASK_07_08.Controller">
     <children>
         <Button fx:id="drawGraph" layoutX="44.0" layoutY="29.0" mnemonicParsing="false" text="Построить графики" />
-        <TextArea fx:id="areaResult" layoutX="29.0" layoutY="238.0" prefHeight="131.0" prefWidth="695.0" />
+        <TextArea fx:id="areaResult" layoutX="29.0" layoutY="238.0" prefHeight="478.0" prefWidth="1228.0" />
         <Text layoutX="268.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="РЕЗУЛЬТАТЫ" textAlignment="CENTER" wrappingWidth="216.35546875">
             <font>
                 <Font name="System Bold" size="31.0" />

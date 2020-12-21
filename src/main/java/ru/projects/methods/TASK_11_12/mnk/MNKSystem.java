@@ -73,7 +73,7 @@ public class MNKSystem {
         for (int i = 0; i < len; i++) {
             for (int j = 0; j < len; j++) {
                 if (i != 0 || j != 0) {
-                    matrixOfKoef[i][j] = (double) mapOfMNKSystem_XY.size();
+                    matrixOfKoef[i][j] = mapOfMNKSystem_XY.size();
                 }
                 if (i >= j) {
                     matrixOfKoef[i][j] = matrixOfKoef[j][i] = sumOfSeriesInDegree(i + j);

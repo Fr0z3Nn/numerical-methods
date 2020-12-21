@@ -1,6 +1,7 @@
 package ru.projects.methods.TASK_04;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class RotationMethod {
@@ -86,8 +87,12 @@ public class RotationMethod {
         for (int i = 0; i < len; i++) {
             for (int j = 0; j < len; j++) {
                 UMatrixTransp[i][j] = UmatrixList.get(iteration)[j][i];
+                System.out.printf("%.4f ",UMatrixTransp[i][j]);
             }
+            System.out.println();
         }
+        System.out.println();
+
         UmatrixTranspList.add(UMatrixTransp);
     }
 

@@ -14,7 +14,6 @@ public class Util {
         return 2 * y - 1;
     }
 
-
     public static double F2(double x, double y) {
         return x - Math.sqrt(y + 3) + 1;
     }

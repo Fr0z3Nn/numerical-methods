@@ -43,7 +43,6 @@ public class Controller {
 
 
     public void initialize() {
-
         drawGraph.setOnMouseClicked(mouseEvent -> {
             scatter = new ScatterChart<>(new NumberAxis(), new NumberAxis());
 
